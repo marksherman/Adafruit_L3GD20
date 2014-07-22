@@ -15,7 +15,7 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include <Adafruit_L3GD20.h>
+#include "Adafruit_L3GD20.h"
 
 /***************************************************************************
  CONSTRUCTOR
