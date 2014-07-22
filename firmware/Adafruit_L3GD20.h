@@ -21,7 +21,7 @@
  #include "Arduino.h"
 //#else
 // #include "WProgram.h"
-//#endif
+#endif
 //#include "Wire.h"
 #include "application.h"
 
