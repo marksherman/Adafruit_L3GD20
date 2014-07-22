@@ -15,8 +15,8 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include <Wire.h> 
-#include <Adafruit_L3GD20.h>
+//#include <Wire.h> 
+//#include <Adafruit_L3GD20.h>
 
 // Comment this next line to use SPI
 //#define USE_I2C
