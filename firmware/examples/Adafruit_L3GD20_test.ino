@@ -1,22 +1,21 @@
-/*************************************************** 
+/***************************************************
   This is an example for the Adafruit Triple-Axis Gyro sensor
 
-  Designed specifically to work with the Adafruit L3GD20 Breakout 
+  Designed specifically to work with the Adafruit L3GD20 Breakout
   ----> https://www.adafruit.com/products/1032
 
-  These sensors use I2C or SPI to communicate, 2 pins (I2C) 
+  These sensors use I2C or SPI to communicate, 2 pins (I2C)
   or 4 pins (SPI) are required to interface.
 
-  Adafruit invests time and resources providing this open source code, 
-  please support Adafruit and open-source hardware by purchasing 
+  Adafruit invests time and resources providing this open source code,
+  please support Adafruit and open-source hardware by purchasing
   products from Adafruit!
 
-  Written by Kevin "KTOWN" Townsend for Adafruit Industries.  
+  Written by Kevin "KTOWN" Townsend for Adafruit Industries.
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-//#include <Wire.h> 
-//#include <Adafruit_L3GD20.h>
+#include "Adafruit_L3GD20/Adafruit_L3GD20.h"
 
 // Comment this next line to use SPI
 //#define USE_I2C
@@ -33,10 +32,10 @@
   Adafruit_L3GD20 gyro(GYRO_CS, GYRO_DO, GYRO_DI, GYRO_CLK);
 #endif
 
-void setup() 
+void setup()
 {
   Serial.begin(9600);
-  
+
   // Try to initialise and warn if we couldn't detect the chip
    if (!gyro.begin(gyro.L3DS20_RANGE_250DPS))
   //if (!gyro.begin(gyro.L3DS20_RANGE_500DPS))
@@ -47,7 +46,7 @@ void setup()
   }
 }
 
-void loop() 
+void loop()
 {
   gyro.read();
   Serial.print("X: "); Serial.print((int)gyro.data.x);   Serial.print(" ");
