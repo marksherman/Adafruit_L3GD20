@@ -50,8 +50,11 @@ bool Adafruit_L3GD20::begin(l3gd20Range_t rng, byte addr)
 
   /* Make sure we have the correct chip ID since this checks
      for correct address and that the IC is properly connected */
-  if (read8(L3GD20_REGISTER_WHO_AM_I) != L3GD20_ID)
+  if (read8(L3GD20_REGISTER_WHO_AM_I) != (USE_MODEL_H ? L3GD20H_ID : L3GD20_ID))
   {
+    char regValue[5];
+    itoa(read8(L3GD20_REGISTER_WHO_AM_I), regValue, 16);
+    Particle.publish("Wrong WHOAMI from L3GD20", regValue, PRIVATE);
     return false;
   }
 
