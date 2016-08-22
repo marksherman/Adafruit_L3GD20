@@ -58,6 +58,6 @@ void loop()
     "x: " + String(gyro.data.x) +
     " y: " + String(gyro.data.y) +
     " z: " + String(gyro.data.z),PRIVATE);
-    }
     old_time = millis();
+    }
 }
