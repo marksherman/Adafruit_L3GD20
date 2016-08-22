@@ -33,6 +33,7 @@
 #endif
 
 bool gyro_initialized = false;
+unsigned long old_time = 0;
 
 void setup()
 {
@@ -51,11 +52,12 @@ void setup()
 
 void loop()
 {
-  if( gyro_initialized ) {
+  if(gyro_initialized && (millis() - old_time > 5000)) {
     gyro.read();
     Particle.publish("Data",
-                     "x: " + String(gyro.data.x) + " y: " + String(gyro.data.y) + " z: " + String(gyro.data.z),
-                     PRIVATE);
+    "x: " + String(gyro.data.x) +
+    " y: " + String(gyro.data.y) +
+    " z: " + String(gyro.data.z),PRIVATE);
     }
-  delay(5000);
+    old_time = millis();
 }
