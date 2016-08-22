@@ -15,7 +15,7 @@
   BSD license, all text above must be included in any redistribution
  ****************************************************/
 
-#include "Adafruit_L3GD20/Adafruit_L3GD20.h"
+#include "Adafruit_L3GD20.h"
 
 // Comment this next line to use SPI
 //#define USE_I2C
@@ -32,25 +32,30 @@
   Adafruit_L3GD20 gyro(GYRO_CS, GYRO_DO, GYRO_DI, GYRO_CLK);
 #endif
 
+bool gyro_initialized = false;
+
 void setup()
 {
-  Serial.begin(9600);
-
   // Try to initialise and warn if we couldn't detect the chip
-   if (!gyro.begin(gyro.L3DS20_RANGE_250DPS))
+   if (gyro.begin(gyro.L3DS20_RANGE_250DPS))
   //if (!gyro.begin(gyro.L3DS20_RANGE_500DPS))
   //if (!gyro.begin(gyro.L3DS20_RANGE_2000DPS))
   {
-    Serial.println("Oops ... unable to initialize the L3GD20. Check your wiring!");
-    while (1);
+    gyro_initialized = true;
+  }
+  else
+  {
+    Particle.publish("Error initializing gyro", PRIVATE);
   }
 }
 
 void loop()
 {
-  gyro.read();
-  Serial.print("X: "); Serial.print((int)gyro.data.x);   Serial.print(" ");
-  Serial.print("Y: "); Serial.print((int)gyro.data.y);   Serial.print(" ");
-  Serial.print("Z: "); Serial.println((int)gyro.data.z); Serial.print(" ");
-  delay(100);
+  if( gyro_initialized ) {
+    gyro.read();
+    Particle.publish("Data",
+                     "x: " + String(gyro.data.x) + " y: " + String(gyro.data.y) + " z: " + String(gyro.data.z),
+                     PRIVATE);
+    }
+  delay(5000);
 }
